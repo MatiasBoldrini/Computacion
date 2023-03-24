@@ -1,49 +1,44 @@
 import unittest
-from io import StringIO
-import sys, os, patch
+import io
+import sys
+import os
+from unittest.mock import patch
 from tp1 import TP1
 
 
 class TestTP1(unittest.TestCase):
+
+    def setUp(self):
+        self.tp1 = TP1()
+
     def test_ejercicio_1(self):
-        # Verifica que se genera la lista correcta de números impares
-        tp1 = TP1()
-        expected_output = '[1, 3, 5, 7, 9]\n'
-        with patch('sys.stdout', new=io.StringIO()) as fake_stdout:
-            tp1.ejercicio_1(5)
-            output = fake_stdout.getvalue()
-        self.assertEqual(output, expected_output)
+        with patch('sys.stdout', new=io.StringIO()) as fake_out:
+            self.tp1.ejercicio_1(5)
+            expected_output = '[1, 3, 5, 7, 9]\n'
+            self.assertEqual(fake_out.getvalue(), expected_output)
 
     def test_ejercicio_2(self):
-        # Verifica que se imprime la cadena repetida correctamente
-        tp1 = TP1()
-        expected_output = 'hola hola hola hola hola \n'
-        with StringIO() as buffer:
-            sys.stdout = buffer
-            tp1.ejercicio_2(5, 'hola ')
-            output = buffer.getvalue()
-        self.assertEqual(output, expected_output)
+        with patch('sys.stdout', new=io.StringIO()) as fake_out:
+            self.tp1.ejercicio_2(3, "Hola")
+            expected_output = 'HolaHolaHola\n'
+            self.assertEqual(fake_out.getvalue(), expected_output)
 
-    # def test_ejercicio_3(self):
-    #     # Verifica que se cuenta correctamente el número de palabras y líneas en el archivo de texto
-    #     tp1 = TP1()
-    #     expected_output = 'Number of lines: 3\nNumber of words: 8\n'
-    #     with StringIO() as buffer:
-    #         sys.stdout = buffer
-    #         tp1.ejercicio_3('test_file.txt')
-    #         output = buffer.getvalue()
-    #     self.assertEqual(output, expected_output)
+    def test_ejercicio_3(self):
+        test_file = 'archivo_test.txt'
+        with open(test_file, 'w') as f:
+            f.write('Candelabro\nManzana\nVentana')
+        with patch('sys.stdout', new=io.StringIO()) as patched_output:
+            self.tp1.ejercicio_3(test_file)
+            patched_print = 'Cantidad de palabras: 3\nCantidad de líneas: 3\n'
+            self.assertEqual(patched_output.getvalue(), patched_print)
+            os.remove(test_file)
 
-    # def test_ejercicio_4(self):
-    #     # Verifica que se escribe correctamente el archivo binario a partir de un archivo de texto
-    #     tp1 = TP1()
-    #     expected_output = 'Binary file written successfully\n'
-    #     with StringIO() as buffer:
-    #         sys.stdout = buffer
-    #         tp1.ejercicio_4('test_file.txt')
-    #         output = buffer.getvalue()
-    #     self.assertEqual(output, expected_output)
-
+    def test_ejercicio_3_error(self):
+        with patch('sys.stdout', new=io.StringIO()) as patched_output:
+            self.tp1.ejercicio_3('archivo_fake.txt')
+            with open(errors.log, 'r') as error_log:
+                self.tp1.ejercicio_3('archivo_inexistente.txt')
+                self.assertEqual(error_log.getvalue(), error_log)
 
 if __name__ == '__main__':
     unittest.main()

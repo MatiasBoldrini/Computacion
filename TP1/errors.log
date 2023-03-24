@@ -1,0 +1,7 @@
+[[ 23-03-23 21:21 ]]
+ERROR: FileNotFoundError
+DESCRIPTION: [Errno 2] No such file or directory: 'arch'
+
+[[ 23-03-23 22:08 ]]
+ERROR: FileNotFoundError
+DESCRIPTION: [Errno 2] No such file or directory: 'nonexistent_file.txt'
