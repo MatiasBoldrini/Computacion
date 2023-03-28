@@ -1,4 +1,5 @@
 import argparse
+import sys
 import datetime
 
 
@@ -14,6 +15,10 @@ class TP1():
                             help='string to multiply')
         parser.add_argument('-f', '--file', type=str,
                             help='file to read')
+        parser.add_argument('-l', '--low_level', type=str,
+                            help='file to read')
+        parser.add_argument('-p', '--promedio', type=str,
+                            help='promedio de palabras')
         args = parser.parse_args()
         if args.impar:
             self.ejercicio_1(args.impar)
@@ -21,6 +26,8 @@ class TP1():
             self.ejercicio_2(args.multiplier, args.string)
         if args.file:
             self.ejercicio_3(args.file)
+        if args.low_level:
+            self.ejercicio_4(args.low_level)
 
     def ejercicio_1(self, n):
         """ 
@@ -36,7 +43,7 @@ class TP1():
         """
         print(string * multiplier)
 
-    def ejercicio_3(self, archivo):
+    def ejercicio_3(self, archivo, promedio=False):
         """ 
             Escribir un programa en Python que acepte argumentos de línea de comando para leer un archivo de texto. 
             El programa debe contar el número de palabras y líneas del archivo e imprimirlas en la salida estándar. 
@@ -49,20 +56,24 @@ class TP1():
                 file_content = f.read()
                 print(f"Cantidad de palabras: {len(file_content.split())}")
                 print(f"Cantidad de líneas: {len(file_content.splitlines())}")
+                words_prom = len(file_content) / len(file_content.split())
+                print(
+                    f'Longitud promedio de las palabras: {round(words_prom)}')
         except Exception as e:
             with open('errors.log', 'a') as f:
                 now = datetime.datetime.now()
                 formatted_date = datetime.datetime.strftime(
-                    now, '%y-%m-%d')
+                    now, '%y-%m-%d')  # Fecha : 21-03-01
                 f.write(f"\n[[ {formatted_date} ]]\n")
                 f.write(f"ERROR: {type(e).__name__}\n")
                 f.write(f"DESCRIPTION: {str(e)}\n")
 
-    def ejercicio_4(self, archivo):
+    def ejercicio_4(self, mensaje):
         """ 
             Continuar el ejercicio comenzado en clase para utilizar la salida de bajo nivel. 
             """
-        pass
+        encoded_message = mensaje.encode('utf-8')
+        sys.stdout.buffer.write(encoded_message)
 
 
 if __name__ == '__main__':
