@@ -17,7 +17,7 @@ class TP1():
                             help='file to read')
         parser.add_argument('-l', '--low_level', type=str,
                             help='file to read')
-        parser.add_argument('-p', '--promedio', type=str,
+        parser.add_argument('-p', '--promedio', action='store_true',
                             help='promedio de palabras')
         args = parser.parse_args()
         if args.impar:
@@ -25,7 +25,7 @@ class TP1():
         if args.multiplier and args.string:
             self.ejercicio_2(args.multiplier, args.string)
         if args.file:
-            self.ejercicio_3(args.file)
+            self.ejercicio_3(args.file, args.promedio)
         if args.low_level:
             self.ejercicio_4(args.low_level)
 
@@ -56,9 +56,9 @@ class TP1():
                 file_content = f.read()
                 print(f"Cantidad de palabras: {len(file_content.split())}")
                 print(f"Cantidad de líneas: {len(file_content.splitlines())}")
-                words_prom = len(file_content) / len(file_content.split())
-                print(
-                    f'Longitud promedio de las palabras: {round(words_prom)}')
+                words_prom = round(len(file_content) / len(file_content.split()))
+                if promedio:
+                    print(f'Longitud promedio de las palabras: {words_prom}')
         except Exception as e:
             with open('errors.log', 'a') as f:
                 now = datetime.datetime.now()
