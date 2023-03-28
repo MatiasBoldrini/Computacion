@@ -51,22 +51,13 @@ class TP1():
             Esta última opción no debe ser obligatoria. 
             Si hubiese errores deben guardarse el un archivo cuyo nombre será "errors.log" usando la redirección de la salida de error.
             """
-        try:
-            with open(archivo, 'r') as f:
-                file_content = f.read()
-                print(f"Cantidad de palabras: {len(file_content.split())}")
-                print(f"Cantidad de líneas: {len(file_content.splitlines())}")
-                words_prom = round(len(file_content) / len(file_content.split()))
-                if promedio:
-                    print(f'Longitud promedio de las palabras: {words_prom}')
-        except Exception as e:
-            with open('errors.log', 'a') as f:
-                now = datetime.datetime.now()
-                formatted_date = datetime.datetime.strftime(
-                    now, '%y-%m-%d')  # Fecha : 21-03-01
-                f.write(f"\n[[ {formatted_date} ]]\n")
-                f.write(f"ERROR: {type(e).__name__}\n")
-                f.write(f"DESCRIPTION: {str(e)}\n")
+        with open(archivo, 'r') as f:
+            file_content = f.read()
+            print(f"Cantidad de palabras: {len(file_content.split())}")
+            print(f"Cantidad de líneas: {len(file_content.splitlines())}")
+            words_prom = round(len(file_content) / len(file_content.split()))
+            if promedio:
+                print(f'Longitud promedio de las palabras: {words_prom}')
 
     def ejercicio_4(self, mensaje):
         """ 
@@ -77,4 +68,13 @@ class TP1():
 
 
 if __name__ == '__main__':
-    tp1 = TP1()
+    try:
+        tp1 = TP1()
+    except Exception as e:
+        with open('errors.log', 'a') as f:
+            now = datetime.datetime.now()
+            formatted_date = datetime.datetime.strftime(
+                now, '%y-%m-%d')  # Fecha : 21-03-01
+            f.write(f"\n[[ {formatted_date} ]]\n")
+            f.write(f"ERROR: {type(e).__name__}\n")
+            f.write(f"DESCRIPTION: {str(e)}\n")
