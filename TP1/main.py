@@ -1,6 +1,7 @@
 import argparse
 import sys
 import datetime
+import subprocess
 
 
 class TP1():
@@ -69,12 +70,13 @@ class TP1():
 
 if __name__ == '__main__':
     try:
+
         tp1 = TP1()
     except Exception as e:
-        with open('errors.log', 'a') as f:
-            now = datetime.datetime.now()
-            formatted_date = datetime.datetime.strftime(
-                now, '%y-%m-%d')  # Fecha : 21-03-01
-            f.write(f"\n[[ {formatted_date} ]]\n")
-            f.write(f"ERROR: {type(e).__name__}\n")
-            f.write(f"DESCRIPTION: {str(e)}\n")
+         with open('errors.log', 'a') as f:
+             now = datetime.datetime.now()
+             formatted_date = datetime.datetime.strftime(
+                 now, '%y-%m-%d')  # Fecha : 21-03-01
+             f.write(f"\n[[ {formatted_date} ]]\n")
+             f.write(f"ERROR: {type(e).__name__}\n")
+             f.write(f"DESCRIPTION: {str(e)}\n")
