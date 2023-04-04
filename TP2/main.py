@@ -2,7 +2,6 @@ import os
 import random
 import math
 import argparse
-import time
 
 
 class Proceso():
@@ -23,7 +22,7 @@ class Proceso():
         else:
             print(self.raiz_cuadrada())
             print(self.raiz_negativa())
-        # pstree -g2 -s main.py
+        #pstree -g2 -s main.py
 
     def raiz_cuadrada(self):
         return f'{round(math.sqrt(self.number),3)}'
