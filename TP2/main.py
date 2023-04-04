@@ -1,7 +1,6 @@
 import os
 import random
 import math
-import cmath
 import argparse
 import time
 
@@ -30,8 +29,7 @@ class Proceso():
         return f'{round(math.sqrt(self.number),3)}'
 
     def raiz_negativa(self):
-        negative_sqrt = cmath.sqrt(-self.number)
-        return f'{round(negative_sqrt.real, 3)} {round(negative_sqrt.imag, 3)*1j}'
+        return f'{-round(math.sqrt(self.number),3)}'
 
 
 if __name__ == "__main__":
