@@ -11,22 +11,31 @@ class Proceso():
     Deberá realizar relizar un fork si -f aparece entre las opciones al ejecutar el programa. 
     El proceso padre deberá calcular la raiz cuadrada positiva de un numero y el hijo la raiz negativa."""
 
-    def __init__(self):
-        number = random.randint(1, 1000)
+    def __init__(self, fork_process):
+        self.number = random.randint(1, 1000)
         print(f'PPID: {os.getpid()}')
-        print(f'El numero a calcular es {number}')
-        pid = os.fork()
-        # pstree -g2 -s main.py
-        if pid > 0:
-            print(f'PADRE: {round(math.sqrt(number),3)}')
+        print(f'El numero a calcular es {self.number}')
+        if fork_process:
+            pid = os.fork()
+            if pid > 0:
+                print(f'PADRE: {self.raiz_cuadrada()} ')
+            else:
+                print(f'HIJO: {self.raiz_negativa()} ')
         else:
-            negative_sqrt = cmath.sqrt(-number)
-            print(
-                f'HIJO: {round(negative_sqrt.real, 3)} {round(negative_sqrt.imag, 3)*1j}')
+            print(self.raiz_cuadrada())
+            print(self.raiz_negativa())
+        # pstree -g2 -s main.py
+
+    def raiz_cuadrada(self):
+        return f'{round(math.sqrt(self.number),3)}'
+
+    def raiz_negativa(self):
+        negative_sqrt = cmath.sqrt(-self.number)
+        return f'{round(negative_sqrt.real, 3)} {round(negative_sqrt.imag, 3)*1j}'
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--fork", help="fork", action="store_true")
     args = parser.parse_args()
-    proceso = Proceso()
+    proceso = Proceso(args.fork)
