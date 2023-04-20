@@ -32,9 +32,5 @@ if __name__ == '__main__':
         print(f'Parent: {pid}')
         os.wait()
         with open(pipe_name, 'r') as pipe:
-            linea = ''
-            for _ in range(4):
-                linea += pipe.readline().replace('\n', ' ') 
-            for i in linea.split():
-                print(i) 
+            print(pipe.read())
         os.unlink(pipe_name)
