@@ -1,0 +1,6 @@
+saludo desde python 
+agua vaso botella
+mouse teclado
+hola aca
+soy
+mati
